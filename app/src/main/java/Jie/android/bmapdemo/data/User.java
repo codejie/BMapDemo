@@ -1,5 +1,6 @@
 package jie.android.bmapdemo.data;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -15,17 +16,40 @@ public class User {
     }
 
     private Data self;
-    private HashMap<Integer, Data> buddy = new HashMap<Integer, Data>();
+    private ArrayList<Data> buddy = new ArrayList<Data>();
 
     public User(final Data self) {
         this.self = self;
     }
     public void addBuddy(final Data data) {
-        buddy.put(data.id, data);
+        buddy.add(data);
     }
 
     public void removeBuddy(int id) {
-        buddy.remove(id);
+        int index = 0;
+        for (final Data data : buddy) {
+            if (data.id == id) {
+                buddy.remove(index);
+                return;
+            }
+            ++ index;
+        }
     }
 
+    public final Data getSelf() {
+        return self;
+    }
+
+    public final ArrayList<Data> getBuddy() {
+        return buddy;
+    }
+
+    public final Data getBuddy(int id) {
+        for (final Data data : buddy) {
+            if (data.id == id) {
+                return data;
+            }
+        }
+        return null;
+    }
 }

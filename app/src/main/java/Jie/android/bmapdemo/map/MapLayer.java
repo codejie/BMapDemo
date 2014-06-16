@@ -20,10 +20,15 @@ public class MapLayer {
         public void onClick(final BaiduMap map, int index, final Marker marker);
     }
 
+    public interface OnMapEventListener {
+        public void onLocatedEnd();
+    }
+
     private Context context;
     private final BaiduMap map;
 
     private OnMarkerClickListener clickListener = null;
+    private OnMapEventListener mapEventListener = null;
 
     private HashMap<Integer, Marker> mapMarker = new HashMap<Integer, Marker>();
 
@@ -61,8 +66,21 @@ public class MapLayer {
        }
    }
 
+   public void removeAllMarker() {
+       for (final Integer index : mapMarker.keySet()) {
+           removeMarker(index);
+       }
+   }
+
    public void setMarkerClickListener(final OnMarkerClickListener listener) {
        clickListener = listener;
    }
 
+   public void setMapEventListener(final OnMapEventListener listener) {
+       mapEventListener = listener;
+   }
+
+    public void setLocation(final LatLng location) {
+
+    }
 }
