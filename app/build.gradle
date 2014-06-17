@@ -5,7 +5,7 @@ android {
         config {
             keyAlias 'codejie'
             keyPassword 'Jiespasswd'
-            storeFile file('D:/Studio/codejie.keystore')
+            storeFile file('F:/Jie/codejie.keystore')
             storePassword 'Jiespasswd'
         }
     }
@@ -27,6 +27,8 @@ android {
         }
         debug {
             signingConfig signingConfigs.config
+        }
+        program {
         }
     }
     productFlavors {

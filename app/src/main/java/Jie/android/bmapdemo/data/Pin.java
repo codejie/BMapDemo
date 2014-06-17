@@ -38,6 +38,7 @@ public class Pin {
         initMapLayer();
 
         putUserSelf();
+        putUserBuddy();
     }
 
     private void initMapLayer() {
@@ -50,18 +51,18 @@ public class Pin {
     }
 
     private void putUserSelf() {
-        final User.Data data = user.getSelf();
-        mapLayer.setLocation(new LatLng(data.x, data.y));
+        final UserData data = user.getSelf();
+//        mapLayer.setLocation(new LatLng(data.x, data.y));
         put(data, false);
     }
 
     private void putUserBuddy() {
-        for (final User.Data data : user.getBuddy()) {
+        for (final UserData data : user.getBuddy()) {
             put(data, true);
         }
     }
 
-    public void put(final User.Data data, boolean merged) {
+    public void put(final UserData data, boolean merged) {
         final BitmapDescriptor bitmap = BitmapDescriptorFactory.fromResource(R.drawable.user_pin);
         mapLayer.addMarker(index, new LatLng(data.x, data.y), bitmap,data.title,index);
         ++ index;

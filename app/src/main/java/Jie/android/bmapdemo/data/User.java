@@ -7,45 +7,47 @@ import java.util.HashMap;
  * Created by Administrator on 2014/6/15.
  */
 public class User {
-    public class Data {
-        public int id;
-        public int type;//0:self; 1: buddy
-        public String title;
-        public double x;
-        public double y;
-    }
 
-    private Data self;
-    private ArrayList<Data> buddy = new ArrayList<Data>();
+    private final UserData self;
+    private ArrayList<UserData> buddy = new ArrayList<UserData>();
 
-    public User(final Data self) {
-        this.self = self;
+    private final OnUserUpdatedListener listener;
+
+    public User(int id, final String title, final OnUserUpdatedListener listener) {
+        this.self = new UserData(id, 0, title, 0.0, 0.0);
+        this.listener = listener;
     }
-    public void addBuddy(final Data data) {
+    public void addBuddy(final UserData data) {
         buddy.add(data);
+        if (listener != null) {
+            listener.onBuddyDataAdded(data);
+        }
     }
 
     public void removeBuddy(int id) {
         int index = 0;
-        for (final Data data : buddy) {
+        for (final UserData data : buddy) {
             if (data.id == id) {
                 buddy.remove(index);
+                if (listener != null) {
+                    listener.onBuddyDataRemoved(data);
+                }
                 return;
             }
             ++ index;
         }
     }
 
-    public final Data getSelf() {
+    public final UserData getSelf() {
         return self;
     }
 
-    public final ArrayList<Data> getBuddy() {
+    public final ArrayList<UserData> getBuddy() {
         return buddy;
     }
 
-    public final Data getBuddy(int id) {
-        for (final Data data : buddy) {
+    public final UserData getBuddy(int id) {
+        for (final UserData data : buddy) {
             if (data.id == id) {
                 return data;
             }
