@@ -1,7 +1,15 @@
 apply plugin: 'android'
 
 android {
-        compileSdkVersion 19
+    signingConfigs {
+        config {
+            keyAlias 'codejie'
+            keyPassword 'Jiespasswd'
+            storeFile file('D:/Studio/codejie.keystore')
+            storePassword 'Jiespasswd'
+        }
+    }
+    compileSdkVersion 19
     buildToolsVersion '19.1.0'
     defaultConfig {
         applicationId 'jie.android.bmapdemo'
@@ -15,8 +23,10 @@ android {
             runProguard false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             debuggable true
+            signingConfig signingConfigs.config
         }
         debug {
+            signingConfig signingConfigs.config
         }
     }
     productFlavors {

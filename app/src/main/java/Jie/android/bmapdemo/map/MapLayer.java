@@ -62,6 +62,7 @@ public class MapLayer {
    public void removeMarker(int index) {
        final Marker marker = mapMarker.remove(index);
        if (marker != null) {
+           marker.getIcon().recycle();
            marker.remove();
        }
    }

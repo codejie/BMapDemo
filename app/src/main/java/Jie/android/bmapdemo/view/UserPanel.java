@@ -13,16 +13,9 @@ import jie.android.bmapdemo.R;
  */
 public class UserPanel {
 
-    private final Context context;
-
-    public UserPanel(Context context) {
-        this.context = context;
-    }
-
-    public View make() {
+    public static View make(final Context context) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.userpanel, null);
-
         return view;
     }
 }

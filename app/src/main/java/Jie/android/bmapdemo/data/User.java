@@ -10,7 +10,7 @@ public class User {
     public class Data {
         public int id;
         public int type;//0:self; 1: buddy
-        public int title;
+        public String title;
         public double x;
         public double y;
     }
