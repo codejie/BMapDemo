@@ -17,6 +17,18 @@ public class User {
         this.self = new UserData(id, 0, title, 0.0, 0.0);
         this.listener = listener;
     }
+
+    public void setSelfLocation(double x, double y) {
+        if (x != self.x || y != self.y) {
+            self.x = x;
+            self.y = y;
+
+            if (listener != null) {
+                listener.onSelfDataUpdated(self);
+            }
+        }
+    }
+
     public void addBuddy(final UserData data) {
         buddy.add(data);
         if (listener != null) {

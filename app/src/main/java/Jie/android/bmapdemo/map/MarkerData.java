@@ -12,6 +12,10 @@ public class MarkerData {
     private Marker marker;
     private String title;
 
+    public MarkerData(final Marker marker) {
+        this.marker = marker;
+    }
+
     public final ArrayList<Integer> getUserId() {
         return userId;
     }

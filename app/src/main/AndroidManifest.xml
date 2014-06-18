@@ -16,6 +16,12 @@
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="f9p6YW3aT3RuHfQGb6ZUb9Q2" />
+
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote" >
+        </service>
     </application>
 
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
@@ -31,5 +37,8 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.BROADCAST_STICKY" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <permission android:name="android.permission.BAIDU_LOCATION_SERVICE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
 </manifest>
