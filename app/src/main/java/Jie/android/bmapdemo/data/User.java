@@ -19,7 +19,8 @@ public class User {
     }
 
     public void setSelfLocation(double x, double y) {
-        if (x != self.x || y != self.y) {
+        if (Math.abs(x - self.x) > 0.0001 || Math.abs(y - self.y) > 0.0001) {
+//        if (x != self.x || y != self.y) {
             self.x = x;
             self.y = y;
 

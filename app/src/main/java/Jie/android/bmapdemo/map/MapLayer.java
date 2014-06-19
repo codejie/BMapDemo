@@ -50,11 +50,16 @@ public class MapLayer {
             @Override
             public boolean onMarkerClick(Marker marker) {
                 if (listener != null) {
-                    listener.onMarkerClick(marker.getExtraInfo().getInt("index"), marker);
+                    listener.onMarkerClick(getMarkerData(marker.getExtraInfo().getInt("index")));
+//                    listener.onMarkerClick(marker.getExtraInfo().getInt("index"), marker);
                 }
                 return false;
             }
         });
+    }
+
+    private final MarkerData getMarkerData(int index) {
+        return mapMarker.get(index);
     }
 
     public void addUserData(final UserData data) {
@@ -65,11 +70,12 @@ public class MapLayer {
             bd = BitmapDescriptorFactory.fromResource(R.drawable.user_pin);
         }
 
-        final Marker marker = (Marker) map.addOverlay(new MarkerOptions().position(new LatLng(data.x, data.y)).icon(bd).title(data.title).zIndex(markerIndex));
+        final Marker marker = (Marker) map.addOverlay(new MarkerOptions().position(new LatLng(data.x, data.y)).icon(bd).zIndex(markerIndex));
         final Bundle bundle = new Bundle();
         bundle.putInt("index", markerIndex);
         marker.setExtraInfo(bundle);
         MarkerData md = new MarkerData(marker);
+        md.setTitle(data.title);
         md.addUserId(data.id);
         mapMarker.put(markerIndex, md);
         ++ markerIndex;

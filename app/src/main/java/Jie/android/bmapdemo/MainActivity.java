@@ -16,18 +16,9 @@ import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.baidu.mapapi.SDKInitializer;
 import com.baidu.mapapi.map.BaiduMap;
-import com.baidu.mapapi.map.BitmapDescriptor;
-import com.baidu.mapapi.map.BitmapDescriptorFactory;
-import com.baidu.mapapi.map.MapStatusUpdate;
-import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
-import com.baidu.mapapi.map.Marker;
-import com.baidu.mapapi.map.MyLocationData;
-import com.baidu.mapapi.model.LatLng;
 
 import jie.android.bmapdemo.R;
-import jie.android.bmapdemo.data.OnUserUpdatedListener;
-import jie.android.bmapdemo.data.Pin;
 import jie.android.bmapdemo.data.User;
 import jie.android.bmapdemo.data.UserData;
 import jie.android.bmapdemo.map.MapLayer;
@@ -45,6 +36,8 @@ public class MainActivity extends Activity {
 
     private MainOnUserUpdatedListener onUserUpdatedListener = new MainOnUserUpdatedListener(this);
     private MainOnMapEventListener onMapEventListener = new MainOnMapEventListener(this);
+
+    private int tempUserId = 1;
 
     private Handler handler = new Handler() {
         @Override
@@ -109,20 +102,7 @@ public class MainActivity extends Activity {
     }
 
     private void onButtonClick(View view) {
-        user.addBuddy(new UserData(2, 1, "TTTTTTTTT", user.getSelf().x + 0.1, user.getSelf().y + 0.2));
-//        BitmapDescriptor bitmap = BitmapDescriptorFactory.fromResource(R.drawable.ic_launcher);
-//        mapLayer.addMarker(0, new LatLng(39.963175, 116.400244), bitmap, "test", 1);
-
-//        if (b) {
-//            b = false;
-//            LatLng ll = new LatLng(bdLocation.getLatitude(),
-//                    bdLocation.getLongitude());
-//            MapStatusUpdate u = MapStatusUpdateFactory.newLatLng(ll);
-//            map.animateMapStatus(u);
-//        }
-//        LatLng ll = new LatLng(tmp.getLatitude(),tmp.getLongitude());
-//        MapStatusUpdate u = MapStatusUpdateFactory.newLatLng(ll);
-//        map.animateMapStatus(u);
+        user.addBuddy(new UserData(tempUserId , 1, "B-" + tempUserId ++ ,user.getSelf().x + Math.random() * 0.025, user.getSelf().y + Math.random() * 0.045));
     }
 
     @Override
@@ -150,21 +130,6 @@ public class MainActivity extends Activity {
         locationClient.registerLocationListener(new BDLocationListener() {
             @Override
             public void onReceiveLocation(BDLocation bdLocation) {
-//                tmp = bdLocation;
-//                MyLocationData locData = new MyLocationData.Builder()
-//                        .accuracy(bdLocation.getRadius())
-//                                // 此处设置开发者获取到的方向信息，顺时针0-360
-//                        .direction(100).latitude(bdLocation.getLatitude())
-//                        .longitude(bdLocation.getLongitude()).build();
-//                map.setMyLocationData(locData);
-//                if (b) {
-//                    b = false;
-//                    LatLng ll = new LatLng(bdLocation.getLatitude(),
-//                            bdLocation.getLongitude());
-//                    MapStatusUpdate u = MapStatusUpdateFactory.newLatLng(ll);
-//                    map.animateMapStatus(u);
-//                }
-
                 final Bundle bundle = new Bundle();
                 bundle.putDouble("latitude", bdLocation.getLatitude());
                 bundle.putDouble("longitude", bdLocation.getLongitude());

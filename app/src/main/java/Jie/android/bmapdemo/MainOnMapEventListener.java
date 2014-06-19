@@ -1,19 +1,23 @@
 package jie.android.bmapdemo;
 
 import android.graphics.Point;
+import android.util.Log;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.PopupWindow;
+import android.widget.Toast;
 
 
-import com.baidu.mapapi.map.InfoWindow;
-import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.Marker;
 
+import jie.android.bmapdemo.map.MarkerData;
 import jie.android.bmapdemo.map.OnMapEventListener;
+import jie.android.bmapdemo.view.OnUserPanelListener;
 import jie.android.bmapdemo.view.UserPanel;
+import jie.android.bmapdemo.view.UserPopupWindow;
 
 /**
  * Created by jzhang on 6/18/2014.
@@ -27,46 +31,26 @@ public class MainOnMapEventListener implements OnMapEventListener {
     }
 
     @Override
-    public void onMarkerClick(int index, Marker marker) {
-        final View panel = UserPanel.make(activity);
+    public void onMarkerClick(final MarkerData data) {
+        final View panel = UserPanel.make(activity, data);
 
+        Point p = activity.getMap().getProjection().toScreenLocation(data.getMarker().getPosition());
 
-        Point p = activity.getMap().getProjection().toScreenLocation(marker.getPosition());
-
-        final PopupWindow pw = new PopupWindow(panel);
-//        //pw.setWidth(250);
-        pw.setWidth(ViewGroup.LayoutParams.WRAP_CONTENT);
-        pw.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
-        pw.setFocusable(true);
-        pw.setOutsideTouchable(true);
-
-        pw.showAtLocation(activity.getMapView(), Gravity.LEFT | Gravity.BOTTOM,p.x, p.y );
-
-        final Button btn = (Button) panel.findViewById(R.id.button2);
-        btn.setOnClickListener(new View.OnClickListener() {
+        UserPopupWindow pw = new UserPopupWindow(panel, new OnUserPanelListener() {
             @Override
             public void onClick(View view) {
-                pw.dismiss();
+                Log.d("=====", "onClick = " + view.getId());
+                Toast.makeText(activity, "Button Clicked", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public boolean onKey(View view, int i, KeyEvent keyEvent) {
+                Log.d("=====", "onKey = " + i + " event = " + keyEvent.getKeyCode());
+                return false;
             }
         });
-//
-//        PopupWindow pw = new PopupWindow(panel, LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT, true);
-//
-//
-//
-//        Point p = activity.getMap().getProjection().toScreenLocation(marker.getPosition());
-//
-//        ViewGroup.LayoutParams ll = new ViewGroup.LayoutParams(p.x, p.y);//ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);//, p.x, p.y, 0);
-//
-//
-//
-//        activity.getMapView().addView(panel, ll);
 
-
-//        MapView.LayoutParams layoutParams = new MapView.LayoutParams(MapView.LayoutParams.WRAP_CONTENT, MapView.LayoutParams.WRAP_CONTENT, p.x, p.y);
-//
-//        final InfoWindow iw = new InfoWindow(panel, marker.getPosition(), null);
-//        activity.getMap().showInfoWindow(iw);
+        pw.showAtLocation(activity.getMapView(), Gravity.LEFT | Gravity.BOTTOM, p.x, activity.getMapView().getHeight() - p.y);
     }
 
     @Override

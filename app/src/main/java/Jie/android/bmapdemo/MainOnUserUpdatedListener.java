@@ -20,6 +20,8 @@ public class MainOnUserUpdatedListener implements OnUserUpdatedListener {
     public void onSelfDataUpdated(UserData data) {
         final MapLayer mapLayer = activity.getMapLayer();
 
+        mapLayer.removeUserData(data.id);
+
         mapLayer.setLocation(new LatLng(data.x, data.y));
         mapLayer.addUserData(data);
     }
