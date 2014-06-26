@@ -11,8 +11,10 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.baidu.location.BDLocation;
@@ -30,7 +32,8 @@ import jie.android.bmapdemo.data.UserData;
 import jie.android.bmapdemo.map.MapLayer;
 import jie.android.bmapdemo.map.MarkerData;
 import jie.android.bmapdemo.map.OnMapEventListener;
-import jie.android.bmapdemo.view.OnUserPanelListener;
+import jie.android.bmapdemo.view.ControlPopupWindow;
+import jie.android.bmapdemo.view.FlatButton;
 import jie.android.bmapdemo.view.UserPanel;
 import jie.android.bmapdemo.view.UserPopupWindow;
 
@@ -189,6 +192,18 @@ public class BMapFragment extends Fragment {
         map.setMyLocationEnabled(true);
         mapLayer = new MapLayer(this.getActivity(), map, onMapEventListener);
 
+        final FlatButton fb = (FlatButton) view.findViewById(R.id.view);
+        fb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final View panel = LayoutInflater.from(BMapFragment.this.getActivity()).inflate(R.layout.view_pop_controlpanel, null);
+
+                ControlPopupWindow pw = new ControlPopupWindow(panel, null);
+                pw.show(mapView, 10, 10);
+            }
+        });
+
+
         return view;
     }
 
@@ -243,7 +258,7 @@ public class BMapFragment extends Fragment {
 
         Point p = map.getProjection().toScreenLocation(data.getMarker().getPosition());
 
-        UserPopupWindow pw = new UserPopupWindow(panel, new OnUserPanelListener() {
+        UserPopupWindow pw = new UserPopupWindow(panel, new UserPopupWindow.OnUserPanelListener() {
             @Override
             public void onClick(View view) {
                 Log.d("=====", "onClick = " + view.getId());
@@ -256,8 +271,8 @@ public class BMapFragment extends Fragment {
                 return false;
             }
         });
-
-        pw.showAtLocation(mapView, Gravity.LEFT | Gravity.BOTTOM, p.x, mapView.getHeight() - p.y);
+        //pw.showAtLocation(mapView, Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM, p.x, mapView.getHeight() - p.y);
+        pw.show(mapView, p.x, p.y);
     }
 
 

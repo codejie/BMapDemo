@@ -14,5 +14,8 @@
     <string name="title_activity_fullscreen">FullscreenActivity</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="view_title_call">Call</string>
+    <string name="view_title_msg">Msg</string>
+    <string name="view_title_flatbutton">+</string>
 
 </resources>

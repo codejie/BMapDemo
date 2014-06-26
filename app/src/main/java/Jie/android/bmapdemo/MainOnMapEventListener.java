@@ -15,12 +15,11 @@ import com.baidu.mapapi.map.Marker;
 
 import jie.android.bmapdemo.map.MarkerData;
 import jie.android.bmapdemo.map.OnMapEventListener;
-import jie.android.bmapdemo.view.OnUserPanelListener;
 import jie.android.bmapdemo.view.UserPanel;
 import jie.android.bmapdemo.view.UserPopupWindow;
 
 /**
- * Created by jzhang on 6/18/2014.
+ * Created by codejie@gmail.com on 6/18/2014.
  */
 public class MainOnMapEventListener implements OnMapEventListener {
 
@@ -36,7 +35,7 @@ public class MainOnMapEventListener implements OnMapEventListener {
 
         Point p = activity.getMap().getProjection().toScreenLocation(data.getMarker().getPosition());
 
-        UserPopupWindow pw = new UserPopupWindow(panel, new OnUserPanelListener() {
+        UserPopupWindow pw = new UserPopupWindow(panel, new UserPopupWindow.OnUserPanelListener() {
             @Override
             public void onClick(View view) {
                 Log.d("=====", "onClick = " + view.getId());

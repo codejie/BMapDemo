@@ -2,4 +2,6 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="view_pop_userpanel_width">101dp</dimen>
+    <dimen name="view_pop_userpanel_height">65dp</dimen>
 </resources>

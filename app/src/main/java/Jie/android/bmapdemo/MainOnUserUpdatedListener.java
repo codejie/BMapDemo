@@ -7,7 +7,7 @@ import jie.android.bmapdemo.data.UserData;
 import jie.android.bmapdemo.map.MapLayer;
 
 /**
- * Created by jzhang on 6/18/2014.
+ * Created by codejie@gmail.com on 6/18/2014.
  */
 public class MainOnUserUpdatedListener implements OnUserUpdatedListener {
 
